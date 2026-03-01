@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/services.dart';
 import '../constants.dart';
 import 'native_bridge.dart';
@@ -32,6 +33,16 @@ class TerminalService {
     final homeDir = '$filesDir/home';
     final prootPath = '$nativeLibDir/libproot.so';
     final libDir = '$filesDir/lib';
+
+    // Direct Dart fallback: create resolv.conf if it still doesn't exist
+    // after the native method channel calls (#40).
+    try {
+      final resolvFile = File('$configDir/resolv.conf');
+      if (!resolvFile.existsSync()) {
+        Directory(configDir).createSync(recursive: true);
+        resolvFile.writeAsStringSync('nameserver 8.8.8.8\nnameserver 8.8.4.4\n');
+      }
+    } catch (_) {}
 
     final storageGranted = await NativeBridge.hasStoragePermission();
 

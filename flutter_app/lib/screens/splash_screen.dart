@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants.dart';
@@ -50,6 +51,17 @@ class _SplashScreenState extends State<SplashScreen>
       // Android may clear the files directory during update or reinstall (#40).
       try { await NativeBridge.setupDirs(); } catch (_) {}
       try { await NativeBridge.writeResolv(); } catch (_) {}
+
+      // Direct Dart fallback: create resolv.conf if native calls failed (#40).
+      try {
+        final filesDir = await NativeBridge.getFilesDir();
+        final configDir = '$filesDir/config';
+        final resolvFile = File('$configDir/resolv.conf');
+        if (!resolvFile.existsSync()) {
+          Directory(configDir).createSync(recursive: true);
+          resolvFile.writeAsStringSync('nameserver 8.8.8.8\nnameserver 8.8.4.4\n');
+        }
+      } catch (_) {}
 
       final prefs = PreferencesService();
       await prefs.init();
