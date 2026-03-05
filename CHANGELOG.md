@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.8.4 — Serial, Log Timestamps & ADB Backup
+
+### New Features
+
+- **Serial over Bluetooth & USB (#21)** — New `serial` node capability with 5 commands (`list`, `connect`, `disconnect`, `write`, `read`). Supports USB serial devices via `usb_serial` and BLE devices via Nordic UART Service (flutter_blue_plus). Device IDs prefixed with `usb:` or `ble:` for disambiguation
+- **Gateway Log Timestamps (#54)** — All gateway log messages (both Kotlin and Dart side) now include ISO 8601 UTC timestamps for easier debugging
+- **ADB Backup Support (#55)** — Added `android:allowBackup="true"` to AndroidManifest so users can back up app data via `adb backup`
+
+### Node Command Reference Update
+
+| Capability | Commands |
+|------------|----------|
+| Serial | `serial.list`, `serial.connect`, `serial.disconnect`, `serial.write`, `serial.read` |
+
+---
+
 ## v1.8.3 — Multi-Instance Guard
 
 ### Bug Fixes

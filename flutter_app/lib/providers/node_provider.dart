@@ -9,6 +9,7 @@ import '../services/capabilities/flash_capability.dart';
 import '../services/capabilities/location_capability.dart';
 import '../services/capabilities/screen_capability.dart';
 import '../services/capabilities/sensor_capability.dart';
+import '../services/capabilities/serial_capability.dart';
 import '../services/capabilities/vibration_capability.dart';
 import '../services/native_bridge.dart';
 import '../services/node_service.dart';
@@ -29,6 +30,7 @@ class NodeProvider extends ChangeNotifier with WidgetsBindingObserver {
   final _locationCapability = LocationCapability();
   final _screenCapability = ScreenCapability();
   final _sensorCapability = SensorCapability();
+  final _serialCapability = SerialCapability();
   final _vibrationCapability = VibrationCapability();
 
   NodeState get state => _state;
@@ -156,6 +158,11 @@ class NodeProvider extends ChangeNotifier with WidgetsBindingObserver {
       _sensorCapability.commands.map((c) => '${_sensorCapability.name}.$c').toList(),
       (cmd, params) => _sensorCapability.handleWithPermission(cmd, params),
     );
+    _nodeService.registerCapability(
+      _serialCapability.name,
+      _serialCapability.commands.map((c) => '${_serialCapability.name}.$c').toList(),
+      (cmd, params) => _serialCapability.handleWithPermission(cmd, params),
+    );
   }
 
   Future<void> _init() async {
@@ -211,6 +218,8 @@ class NodeProvider extends ChangeNotifier with WidgetsBindingObserver {
       Permission.camera,
       Permission.location,
       Permission.sensors,
+      Permission.bluetoothConnect,
+      Permission.bluetoothScan,
     ].request();
   }
 
@@ -306,6 +315,7 @@ class NodeProvider extends ChangeNotifier with WidgetsBindingObserver {
     _nodeService.dispose();
     _cameraCapability.dispose();
     _flashCapability.dispose();
+    _serialCapability.dispose();
     NativeBridge.stopNodeService();
     super.dispose();
   }

@@ -219,7 +219,8 @@ class GatewayService : Service() {
 
     private fun emitLog(message: String) {
         try {
-            logSink?.success(message)
+            val ts = java.time.Instant.now().toString()
+            logSink?.success("$ts $message")
         } catch (_: Exception) {}
     }
 
