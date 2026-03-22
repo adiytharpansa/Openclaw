@@ -2,6 +2,10 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        // Fallback for plugins that still reference jcenter() (#69).
+        // usb_serial 0.5.x requires jcenter for dependency resolution.
+        //noinspection GradleDeprecated
+        jcenter()
     }
 }
 
@@ -22,17 +26,6 @@ subprojects {
 
 subprojects {
     project.evaluationDependsOn(":app")
-
-    // Fix plugins that still reference the deprecated jcenter() repository (#69).
-    // Force all subprojects to use mavenCentral() instead.
-    project.afterEvaluate {
-        project.repositories {
-            mavenCentral()
-        }
-        project.repositories.removeIf { repo ->
-            repo instanceof MavenArtifactRepository && repo.url.toString().contains("jcenter")
-        }
-    }
 }
 
 tasks.register("clean", Delete) {
