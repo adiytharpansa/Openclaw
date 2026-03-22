@@ -28,13 +28,14 @@ class GatewayState {
     DateTime? startedAt,
     bool clearStartedAt = false,
     String? dashboardUrl,
+    bool clearDashboardUrl = false,
   }) {
     return GatewayState(
       status: status ?? this.status,
       logs: logs ?? this.logs,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       startedAt: clearStartedAt ? null : (startedAt ?? this.startedAt),
-      dashboardUrl: dashboardUrl ?? this.dashboardUrl,
+      dashboardUrl: clearDashboardUrl ? null : (dashboardUrl ?? this.dashboardUrl),
     );
   }
 

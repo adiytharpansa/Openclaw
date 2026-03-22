@@ -71,10 +71,16 @@ class GatewayService {
       // Write allowCommands config so the next gateway restart picks it up,
       // and in case the running gateway supports config hot-reload.
       await _writeNodeAllowConfig();
+      // Prefer token from config file over stale SharedPreferences value (#74, #82).
+      final configToken = await _readTokenFromConfig();
+      final effectiveUrl = configToken != null
+          ? 'http://localhost:18789/#token=$configToken'
+          : savedUrl;
+      if (configToken != null) prefs.dashboardUrl = effectiveUrl;
       _startingAt = DateTime.now();
       _updateState(_state.copyWith(
         status: GatewayStatus.starting,
-        dashboardUrl: savedUrl,
+        dashboardUrl: effectiveUrl,
         logs: [..._state.logs, _ts('[INFO] Gateway process detected, reconnecting...')],
       ));
 
@@ -173,6 +179,19 @@ fs.writeFileSync(p, JSON.stringify(c, null, 2));
     }
   }
 
+  /// Read the actual gateway auth token from openclaw.json config file (#74, #82).
+  /// This is the source of truth — more reliable than regex-scraping stdout.
+  Future<String?> _readTokenFromConfig() async {
+    try {
+      final raw = await NativeBridge.readRootfsFile('root/.openclaw/openclaw.json');
+      if (raw == null) return null;
+      final config = jsonDecode(raw) as Map<String, dynamic>;
+      final token = config['gateway']?['auth']?['token'];
+      if (token is String && token.isNotEmpty) return token;
+    } catch (_) {}
+    return null;
+  }
+
   /// Escape a string for use as a single-quoted shell argument.
   static String _shellEscape(String s) {
     return "'${s.replaceAll("'", "'\\''")}'";
@@ -183,15 +202,17 @@ fs.writeFileSync(p, JSON.stringify(c, null, 2));
     if (_startInProgress) return;
     _startInProgress = true;
 
+    // Clear any stale token from a previous session (#74, #82).
+    // The fresh token will be captured from gateway stdout once it starts.
     final prefs = PreferencesService();
     await prefs.init();
-    final savedUrl = prefs.dashboardUrl;
+    prefs.dashboardUrl = null;
 
     _updateState(_state.copyWith(
       status: GatewayStatus.starting,
       clearError: true,
+      clearDashboardUrl: true,
       logs: [..._state.logs, _ts('[INFO] Starting gateway...')],
-      dashboardUrl: savedUrl,
     ));
 
     try {
@@ -280,9 +301,24 @@ fs.writeFileSync(p, JSON.stringify(c, null, 2));
           .timeout(const Duration(seconds: 3));
 
       if (response.statusCode < 500 && _state.status != GatewayStatus.running) {
+        // Read the actual token from openclaw.json — source of truth (#74, #82).
+        // This ensures the displayed token always matches the gateway's config,
+        // even if the stdout regex didn't capture it.
+        String? configUrl = _state.dashboardUrl;
+        try {
+          final token = await _readTokenFromConfig();
+          if (token != null) {
+            configUrl = 'http://localhost:18789/#token=$token';
+            final prefs = PreferencesService();
+            await prefs.init();
+            prefs.dashboardUrl = configUrl;
+          }
+        } catch (_) {}
+
         _updateState(_state.copyWith(
           status: GatewayStatus.running,
           startedAt: DateTime.now(),
+          dashboardUrl: configUrl,
           logs: [..._state.logs, _ts('[INFO] Gateway is healthy')],
         ));
       }

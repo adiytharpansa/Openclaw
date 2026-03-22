@@ -114,6 +114,25 @@ class _SplashScreenState extends State<SplashScreen>
         setupComplete = false;
       }
 
+      // Auto-repair: if only bionic-bypass is missing, regenerate it
+      // instead of forcing full re-setup (#70, #73).
+      if (!setupComplete) {
+        try {
+          final status = await NativeBridge.getBootstrapStatus();
+          final rootfsOk = status['rootfsExists'] == true;
+          final bashOk = status['binBashExists'] == true;
+          final nodeOk = status['nodeInstalled'] == true;
+          final openclawOk = status['openclawInstalled'] == true;
+          final bypassOk = status['bypassInstalled'] == true;
+
+          if (rootfsOk && bashOk && nodeOk && openclawOk && !bypassOk) {
+            setState(() => _status = 'Repairing bionic bypass...');
+            await NativeBridge.installBionicBypass();
+            setupComplete = await NativeBridge.isBootstrapComplete();
+          }
+        } catch (_) {}
+      }
+
       if (!mounted) return;
 
       if (setupComplete) {
