@@ -22,6 +22,17 @@ subprojects {
 
 subprojects {
     project.evaluationDependsOn(":app")
+
+    // Fix plugins that still reference the deprecated jcenter() repository (#69).
+    // Force all subprojects to use mavenCentral() instead.
+    project.afterEvaluate {
+        project.repositories {
+            mavenCentral()
+        }
+        project.repositories.removeIf { repo ->
+            repo instanceof MavenArtifactRepository && repo.url.toString().contains("jcenter")
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
