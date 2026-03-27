@@ -9,10 +9,12 @@
 - **Config Auto-Repair on Init (#88)** — Added `_repairConfigFile()` that runs on every `GatewayService.init()` to fix corrupted model entries and missing `gateway.mode`, preventing the crash-restart loop (5 restarts → stopped)
 - **Bionic Bypass Installation Robustness (#94)** — Added retry logic with parent directory creation if the initial `mkdirs()` fails silently on some devices
 - **Pre-seed Config on Setup** — `installBionicBypass()` now creates a default `openclaw.json` with `gateway.mode=local` during initial setup, so the gateway works immediately after installation
+- **Setup Re-prompt After Node Upgrade (#97)** — Expanded auto-repair on splash screen to reinstall Node.js and OpenClaw when their binaries are missing but rootfs is intact, instead of forcing a full re-setup
 
 ### Enhancements
 
 - **Node.js Updated to 22.14.0** — Upgraded from 22.13.1 to latest 22.x LTS for better stability and compatibility (#87)
+- **npm Package Synced to 1.8.6** — Updated package.json version, refreshed dependencies, bumped engine to Node >= 22
 - **Removed Outdated Model** — Dropped `claude-3-5-sonnet-20241022` from Anthropic provider defaults
 
 ---
