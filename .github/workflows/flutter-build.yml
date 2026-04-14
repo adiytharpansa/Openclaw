@@ -132,7 +132,7 @@ jobs:
 
       - name: 📊 Upload APK artifacts
         if: github.event.inputs.build_type != 'aab'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: apks-${{ steps.get_version.outputs.version }}
           path: |
@@ -145,7 +145,7 @@ jobs:
 
       - name: 📦 Upload AAB artifact
         if: github.event.inputs.build_type != 'apk'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: aab-${{ steps.get_version.outputs.version }}
           path: |
