@@ -96,49 +96,49 @@ jobs:
           fi
 
       - name: 📦 Get Flutter dependencies
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: flutter pub get
 
       - name: 🔍 Analyze Flutter code
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: flutter analyze || echo "Analyze found issues (continuing)"
 
       - name: 🧪 Run Flutter tests
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: flutter test || echo "No tests or tests failed (continuing)"
 
       - name: 🏗️ Build Universal APK
         if: github.event.inputs.build_type != 'aab'
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: |
           flutter build apk --release \
             --dart-define=app.version=${{ steps.get_version.outputs.version }}
           cp build/app/outputs/flutter-apk/app-release.apk \
-             ../openclaw-${{ steps.get_version.outputs.version }}.apk
+             ../../openclaw-${{ steps.get_version.outputs.version }}.apk
 
       - name: 🏗️ Build Split APKs (per ABI)
         if: github.event.inputs.build_type != 'aab'
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: |
           flutter build apk --release \
             --split-per-abi \
             --dart-define=app.version=${{ steps.get_version.outputs.version }}
           
           cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk \
-             ../openclaw-${{ steps.get_version.outputs.version }}-armv7.apk
+             ../../openclaw-${{ steps.get_version.outputs.version }}-armv7.apk
           cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk \
-             ../openclaw-${{ steps.get_version.outputs.version }}-arm64.apk
+             ../../openclaw-${{ steps.get_version.outputs.version }}-arm64.apk
           cp build/app/outputs/flutter-apk/app-x86_64-release.apk \
-             ../openclaw-${{ steps.get_version.outputs.version }}-x86_64.apk
+             ../../openclaw-${{ steps.get_version.outputs.version }}-x86_64.apk
 
       - name: 📦 Build AAB (Android App Bundle)
         if: github.event.inputs.build_type != 'apk'
-        working-directory: flutter_app
+        working-directory: termux/flutter_app
         run: |
           flutter build appbundle --release \
             --dart-define=app.version=${{ steps.get_version.outputs.version }}
           cp build/app/outputs/bundle/release/app-release.aab \
-             ../openclaw-${{ steps.get_version.outputs.version }}.aab
+             ../../openclaw-${{ steps.get_version.outputs.version }}.aab
 
       - name: 🔐 Generate SHA256 checksums
         run: |
