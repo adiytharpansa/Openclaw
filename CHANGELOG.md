@@ -1,5 +1,53 @@
 # Changelog
 
+## v2.0.0 — Performance Optimization & Official Release
+
+### 🎉 Major Release
+
+**Official OpenClaw Termux Edition** - Rebranded dan dioptimalkan untuk performa maksimal!
+
+### ⚡ Performance Improvements
+
+- **Performance Utils** - New utility class untuk performance monitoring dan timing
+- **Cache Manager** - Intelligent caching untuk expensive operations (1 hour default expiry)
+- **App Logger** - Centralized logging system dengan level-based filtering (INFO, WARN, ERROR, DEBUG, VERBOSE)
+- **Safe Async** - Error-safe async execution dengan automatic error handling dan recovery
+- **Memory Optimization** - Log buffer limited to 1000 entries, performance metrics capped at 100
+- **Faster Health Checks** - Interval reduced dari 5s ke 3s untuk respons lebih cepat
+- **Connection Timeouts** - Added 10s connection timeout dan 30s read timeout untuk better reliability
+
+### 🎨 UI/UX Enhancements
+
+- **AMOLED Dark Mode** - Pure black background (#000000) untuk hemat baterai di layar OLED
+- **Enhanced Color Palette** - Added accentLight dan accentDark untuk better gradient support
+- **Better SnackBar Design** - Added elevation (8dp) dan border untuk better visibility
+- **Progress Indicator** - Added circularTrackColor untuk consistency
+- **System UI** - Edge-to-edge display dengan proper status bar handling
+
+### 🔧 Technical Improvements
+
+- **Version Bump** - Updated dari 1.8.7 ke 2.0.0 (major release)
+- **Package Name** - Changed ke `com.openclaw.termux` (official branding)
+- **Author Info** - Updated ke OpenClaw Contributors
+- **Repository Links** - Pointing ke official openclaw/openclaw repo
+- **Dependencies** - Added flutter_cache_manager, build_runner, json_serializable
+- **Orientation Lock** - Portrait-only mode untuk better UX
+- **Debug Mode Detection** - Runtime checks untuk debug/profile/release builds
+
+### 📝 Documentation
+
+- **README Updates** - Added Bahasa Indonesia descriptions
+- **Badges** - Added Discord badge dan updated all links ke official repo
+- **Feature Highlights** - Emphasized performance optimizations di README
+
+### 🐛 Bug Fixes
+
+- **Error Handling** - Better error messages dengan stack traces
+- **Log Export** - Added functionality untuk export logs sebagai string
+- **Timer Management** - Proper cleanup untuk performance timers
+
+---
+
 ## v1.8.6 — Config Repair, Gateway Mode & Node.js Update
 
 ### Bug Fixes

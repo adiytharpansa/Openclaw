@@ -10,14 +10,16 @@ import 'screens/splash_screen.dart';
 class AppColors {
   AppColors._();
 
-  // Brand accent
+  // Brand accent - OpenClaw Red
   static const Color accent = Color(0xFFDC2626);
+  static const Color accentLight = Color(0xFFEF4444);
+  static const Color accentDark = Color(0xFFB91C1C);
 
-  // Dark mode
-  static const Color darkBg = Color(0xFF0A0A0A);
-  static const Color darkSurface = Color(0xFF121212);
-  static const Color darkSurfaceAlt = Color(0xFF1A1A1A);
-  static const Color darkBorder = Color(0xFF2A2A2A);
+  // Dark mode - AMOLED optimized
+  static const Color darkBg = Color(0xFF000000); // Pure black for AMOLED
+  static const Color darkSurface = Color(0xFF0A0A0A);
+  static const Color darkSurfaceAlt = Color(0xFF121212);
+  static const Color darkBorder = Color(0xFF262626);
 
   // Light mode
   static const Color lightBg = Color(0xFFFFFFFF);
@@ -160,6 +162,7 @@ class OpenClawApp extends StatelessWidget {
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: AppColors.accent,
         linearTrackColor: AppColors.darkBorder,
+        circularTrackColor: AppColors.darkBorder,
       ),
       dividerTheme: const DividerThemeData(
         color: AppColors.darkBorder,
@@ -304,12 +307,14 @@ class OpenClawApp extends StatelessWidget {
         ),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: const Color(0xFF0A0A0A),
+        backgroundColor: AppColors.darkSurfaceAlt,
         contentTextStyle: GoogleFonts.inter(color: Colors.white),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: AppColors.darkBorder),
         ),
         behavior: SnackBarBehavior.floating,
+        elevation: 8,
       ),
       listTileTheme: const ListTileThemeData(
         iconColor: AppColors.mutedText,

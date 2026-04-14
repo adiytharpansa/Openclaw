@@ -1,7 +1,7 @@
 name: openclaw
-description: OpenClaw AI Gateway for Android - standalone, no Termux required.
+description: OpenClaw AI Gateway for Android - Official Termux Edition
 publish_to: 'none'
-version: 1.8.7+18
+version: 2.0.0+20
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -9,29 +9,47 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  # Terminal & Shell
   xterm: ^4.0.0
   flutter_pty: ^0.4.2
+  
+  # Web & Network
   webview_flutter: ^4.4.0
   dio: ^5.4.0
   http: ^1.2.0
+  web_socket_channel: ^3.0.0
+  
+  # State Management
   provider: ^6.1.0
   shared_preferences: ^2.2.0
+  
+  # System & Utils
   path_provider: ^2.1.0
   permission_handler: ^11.3.0
   url_launcher: ^6.2.0
-  web_socket_channel: ^3.0.0
   cryptography: ^2.7.0
-  google_fonts: ^6.1.0
   uuid: ^4.2.0
+  
+  # UI/UX
+  google_fonts: ^6.1.0
+  flutter_native_splash: ^2.3.0
+  
+  # Device Capabilities
   camera: ^0.11.0
   geolocator: ^12.0.0
   flutter_blue_plus: ^1.32.0
   usb_serial: ^0.5.1
+  
+  # Performance
+  flutter_cache_manager: ^3.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.0
+  json_serializable: ^6.7.0
 
 flutter:
   uses-material-design: true

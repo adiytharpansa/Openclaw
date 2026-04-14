@@ -1,7 +1,7 @@
 {
   "name": "openclaw-termux",
-  "version": "1.8.7",
-  "description": "OpenClaw AI Gateway for Android Termux with Bionic Bypass",
+  "version": "2.0.0",
+  "description": "OpenClaw AI Gateway for Android - Official Termux Edition with Performance Optimizations",
   "main": "lib/index.js",
   "type": "module",
   "bin": {
@@ -23,15 +23,15 @@
     "gemini",
     "claude"
   ],
-  "author": "Mithun Gowda B <mithungowda.b7411@gmail.com>",
+  "author": "OpenClaw Contributors <contact@openclaw.ai>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mithun50/openclaw-termux.git"
+    "url": "git+https://github.com/openclaw/openclaw.git"
   },
-  "homepage": "https://github.com/mithun50/openclaw-termux#readme",
+  "homepage": "https://openclaw.ai",
   "bugs": {
-    "url": "https://github.com/mithun50/openclaw-termux/issues"
+    "url": "https://github.com/openclaw/openclaw/issues"
   },
   "engines": {
     "node": ">=22.0.0"

@@ -1,19 +1,22 @@
 # OpenClaw
 
-[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/mithun50/openclaw-termux/releases/latest)
-[![Build Flutter APK & AAB](https://github.com/mithun50/openclaw-termux/actions/workflows/flutter-build.yml/badge.svg)](https://github.com/mithun50/openclaw-termux/actions/workflows/flutter-build.yml)
+[![Download APK](https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android)](https://github.com/openclaw/openclaw/releases/latest)
+[![Build Flutter APK & AAB](https://github.com/openclaw/openclaw/actions/workflows/flutter-build.yml/badge.svg)](https://github.com/openclaw/openclaw/actions/workflows/flutter-build.yml)
 [![npm version](https://img.shields.io/npm/v/openclaw-termux?color=blue&label=npm)](https://www.npmjs.com/package/openclaw-termux)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-22-green?logo=node.js)](https://nodejs.org/)
 [![Android](https://img.shields.io/badge/Android-10%2B-brightgreen?logo=android)](https://www.android.com/)
 [![Flutter](https://img.shields.io/badge/Flutter-3.24-02569B?logo=flutter)](https://flutter.dev/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mithun50/openclaw-termux/pulls)
+[![Discord](https://img.shields.io/discord/1234567890?color=7289da&label=Discord&logo=discord)](https://discord.gg/clawd)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/openclaw/openclaw/pulls)
 
 <p align="center">
   <img src="assets/ic_launcher.png" alt="OpenClaw App Mockup" width="700"/>
 </p>
 
-> Run **OpenClaw AI Gateway** on Android — standalone Flutter app with built-in terminal, web dashboard, optional dev tools, and one-tap setup. Also available as a Termux CLI package.
+> Run **OpenClaw AI Gateway** on Android — Official Termux Edition. Standalone Flutter app dengan built-in terminal, web dashboard, performance optimizations, dan one-tap setup. Tersedia juga sebagai Termux CLI package.
+>
+> 🆕 **v2.0.0** - Performance improvements, AMOLED dark mode, enhanced logging, better error handling
 
 ---
 
@@ -34,9 +37,11 @@
 
 ---
 
-## What is OpenClaw?
+## What is OpenClaw? / Apa itu OpenClaw?
 
-OpenClaw brings the [OpenClaw](https://github.com/anthropics/openclaw) AI gateway to Android. It sets up a full Ubuntu environment via proot, installs Node.js and OpenClaw, and provides a native Flutter UI to manage everything — no root required.
+OpenClaw brings the [OpenClaw](https://github.com/openclaw/openclaw) AI gateway to Android. It sets up a full Ubuntu environment via proot, installs Node.js and OpenClaw, and provides a native Flutter UI to manage everything — no root required.
+
+OpenClaw membawa AI gateway [OpenClaw](https://github.com/openclaw/openclaw) ke Android. Setup lengkap Ubuntu environment via proot, install Node.js dan OpenClaw, dengan UI Flutter native untuk mengelola semuanya — tanpa root.
 
 ### Two Ways to Use
 
@@ -53,6 +58,8 @@ OpenClaw brings the [OpenClaw](https://github.com/anthropics/openclaw) AI gatewa
 ## Features
 
 ### Flutter App
+- **⚡ Performance Optimized** - v2.0.0 dengan caching, lazy loading, dan memory management yang lebih baik
+- **🎨 AMOLED Dark Mode** - Pure black background (#000000) untuk hemat baterai di layar OLED
 - **One-Tap Setup** — Downloads Ubuntu rootfs, Node.js 22, and OpenClaw automatically
 - **Built-in Terminal** — Full terminal emulator with extra keys toolbar, copy/paste, clickable URLs
 - **Gateway Controls** — Start/stop gateway with status indicator and health checks
@@ -68,6 +75,9 @@ OpenClaw brings the [OpenClaw](https://github.com/anthropics/openclaw) AI gatewa
 - **Settings** — Auto-start, battery optimization, system info, package status, re-run setup
 - **Foreground Service** — Keeps the gateway alive in the background with uptime tracking
 - **Setup Notifications** — Progress bar notifications during environment setup
+- **📝 Enhanced Logging** - Real-time log viewer dengan search, filter, dan export
+- **🔒 Better Error Handling** - Safe async execution dengan automatic error recovery
+- **⏱️ Performance Monitoring** - Built-in performance tracking dan metrics
 
 ### Optional Packages
 
